@@ -62,6 +62,6 @@ modules:
 jwt:
   expire: 86400           # Token过期时间（秒）
   refresh_expire: 604800  # 刷新Token过期时间（秒）
-  issuer: "ucenter-simple"   # Token发行者
+  issuer: "ucenter-lite"   # Token发行者
   audience: "all-apps"    # Token接收者
   version: "1.0"         # JWT版本号，用于强制失效
