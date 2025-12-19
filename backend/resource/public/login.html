@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录</title>
+    <style>
+        body {
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+        }
+        .login-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 32px;
+            color: #333;
+        }
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .login-input {
+            width: 320px;
+            height: 40px;
+            font-size: 16px;
+            padding: 0 12px;
+            border: 1px solid #cfd8dc;
+            border-radius: 6px;
+            outline: none;
+            margin-bottom: 18px;
+            box-sizing: border-box;
+        }
+        .login-btn {
+            height: 40px;
+            padding: 0 24px;
+            font-size: 16px;
+            background: #67c23a;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .login-btn:hover {
+            background: #52b12c;
+        }
+        .error-msg {
+            color: #e74c3c;
+            margin-top: 16px;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-title">登录</div>
+        <form class="login-form" onsubmit="return handleLogin(event)">
+            <input class="login-input" id="userToken" type="text" placeholder="请输入userToken" required />
+            <button class="login-btn" type="submit">登录</button>
+        </form>
+        <div id="errorMsg" class="error-msg"></div>
+    </div>
+    <script>
+        function handleLogin(event) {
+            event.preventDefault();
+            const token = document.getElementById('userToken').value.trim();
+            if (!token) return;
+            // 直接浏览器跳转（这里只能采用这种方式，不能使用fetch/axios，否则无法跳转到子服务的页面）
+            window.location.href = `/login?userToken=${encodeURIComponent(token)}`;
+        }
+    </script>
+    <script>
+        window.onload = function() {
+            const params = new URLSearchParams(window.location.search);
+            const error = params.get('error');
+            if (error) {
+                document.getElementById('errorMsg').textContent = decodeURIComponent(error);
+            }
+        };
+    </script>
+</body>
+</html>

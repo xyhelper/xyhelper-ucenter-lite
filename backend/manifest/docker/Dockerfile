@@ -1,0 +1,17 @@
+FROM loads/alpine:3.8
+
+###############################################################################
+#                                INSTALLATION
+###############################################################################
+
+ENV WORKDIR                 /app
+ADD resource                $WORKDIR/resource
+ADD ./temp/linux_amd64/main $WORKDIR/main
+ADD config.prod.yaml $WORKDIR/config.yaml
+RUN chmod +x $WORKDIR/main
+
+###############################################################################
+#                                   START
+###############################################################################
+WORKDIR $WORKDIR
+CMD ./main
